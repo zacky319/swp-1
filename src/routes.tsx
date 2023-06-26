@@ -7,6 +7,7 @@ import Pages404 from "./Page/Authen/Pages404/Pages404";
 import { Home } from "./Page/Authen/Home/Home";
 import { Dashboard } from "./Page/Authen/Dashboard/Dashboard";
 import AntdMenu from "./Page/Components/antdMenu/AntdMenu";
+import Profile from "./Page/Authen/Profile/Profile";
 
 export const routers = createBrowserRouter(
     [
@@ -34,7 +35,14 @@ export const routers = createBrowserRouter(
                     <div className="grow "><Dashboard /></div>
                 </div>)
         },
-
+        {
+            path: "/profile",
+            element:
+                (<div className="flex gap-5 p-1  m-1 ">
+                    <div className="flex-none w-64"><AntdMenu /></div>
+                    <div className="grow "><Profile /></div>
+                </div>)
+        },
 
     ]
 )

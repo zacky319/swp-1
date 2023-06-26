@@ -3,13 +3,13 @@ import type { BadgeProps } from 'antd';
 import { Badge, Calendar } from 'antd';
 import type { Dayjs } from 'dayjs';
 import type { CellRenderInfo } from 'rc-picker/lib/interface';
-
+import './index.css'
 const getListData = (value: Dayjs) => {
   let listData;
   switch (value.date()) {
     case 8:
       listData = [
-        { type: 'warning', content: 'This is warning event.' },
+        {  content: 'This is warning event.', },
         { type: 'success', content: 'This is usual event.' },
       ];
       break;
@@ -36,11 +36,15 @@ const getListData = (value: Dayjs) => {
 };
 
 const getMonthData = (value: Dayjs) => {
-  if (value.month() === 8) {
+  if (value.month() === 0) {
     return 1394;
   }
 };
-
+const getYearData = (value: Dayjs) => {
+  if (value.year() === 0) {
+    return 1394;
+  }
+};
 const AntdCalendar: React.FC = () => {
   const monthCellRender = (value: Dayjs) => {
     const num = getMonthData(value);
@@ -51,7 +55,15 @@ const AntdCalendar: React.FC = () => {
       </div>
     ) : null;
   };
-
+  const yearCellRender = (value: Dayjs) => {
+    const num = getMonthData(value);
+    return num ? (
+      <div className="notes-month">
+        <section>{num}</section>
+        <span>Backlog number</span>
+      </div>
+    ) : null;
+  };
   const dateCellRender = (value: Dayjs) => {
     const listData = getListData(value);
     return (
@@ -68,6 +80,7 @@ const AntdCalendar: React.FC = () => {
   const cellRender = (current: Dayjs, info: CellRenderInfo<Dayjs>) => {
     if (info.type === 'date') return dateCellRender(current);
     if (info.type === 'month') return monthCellRender(current);
+    if (info.type === 'year') return yearCellRender(current);
     return info.originNode;
   };
 
@@ -77,7 +90,7 @@ const AntdCalendar: React.FC = () => {
         if (source === 'date') {
           console.log('Panel Select:', date);
         }
-      }} fullscreen={false} cellRender={cellRender} /></div>
+      }} fullscreen={true} cellRender={cellRender} /></div>
     </>
   );
 };
