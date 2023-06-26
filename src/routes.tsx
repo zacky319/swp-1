@@ -29,9 +29,9 @@ export const routers = createBrowserRouter(
         {
             path: "/dashboard",
             element:
-                (<div className="flex gap-5 p-1">
-                    <div className="w-64"><AntdMenu />
-                    </div><Dashboard />
+                (<div className="flex gap-5 p-1  m-1 ">
+                    <div className="flex-none w-64"><AntdMenu /></div>
+                    <div className="grow "><Dashboard /></div>
                 </div>)
         },
 

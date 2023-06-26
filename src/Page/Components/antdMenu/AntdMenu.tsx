@@ -1,19 +1,15 @@
 import React, { useContext, useState } from 'react';
 import {
-  AppstoreOutlined,
   BarChartOutlined,
   CalendarOutlined,
   DashboardOutlined,
-  LinkOutlined,
-  MailOutlined,
   MessageOutlined,
   ProjectOutlined,
-  SettingOutlined,
   SnippetsOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Divider, Menu, Switch } from 'antd';
-import type { MenuProps, MenuTheme } from 'antd/es/menu';
+import { Menu, } from 'antd';
+import type { MenuProps } from 'antd/es/menu';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LanguageContext, LanguageType } from '../../../contexts/LanguageContext';
 
@@ -71,7 +67,6 @@ const AntdMenu: React.FC = () => {
   };
   return (
     <>
-
       <Menu
         style={{ width: 256 ,height:3000,position: "fixed" }}
         defaultSelectedKeys={['1']}
