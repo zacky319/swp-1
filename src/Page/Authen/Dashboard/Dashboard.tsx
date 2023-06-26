@@ -4,6 +4,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import moment from "moment";
 import { IhcLink } from "../../Components/Link/IhcLink";
+import AntdCalendar from "./AntdCalendar";
 
 
 export const Dashboard = () => {
@@ -22,6 +23,8 @@ export const Dashboard = () => {
             console.log('Clear');
         }
     };
+    
+console.log(process.env.REACT_APP_BASE_URLS);
 
     return (
         <>
@@ -71,7 +74,7 @@ export const Dashboard = () => {
 
                     </Card>
 
-                    <Card title="Default size card" extra={<IhcLink to="/">More</IhcLink>} style={{ width: 300 }}>
+                    <Card title="Default size card" extra={<IhcLink to="/">More</IhcLink>} style={{ width: 500 }}>
                         <p>Card content</p>
                         <p>Card content</p>
                         <p>Card content</p> <p>Card content</p>
@@ -88,6 +91,8 @@ export const Dashboard = () => {
 
 
                 </div>
+
+                <AntdCalendar/>
             </div>
         </>
     )

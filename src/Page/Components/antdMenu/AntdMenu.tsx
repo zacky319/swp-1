@@ -3,6 +3,7 @@ import {
   BarChartOutlined,
   CalendarOutlined,
   DashboardOutlined,
+  LogoutOutlined,
   MessageOutlined,
   ProjectOutlined,
   SnippetsOutlined,
@@ -37,8 +38,7 @@ const items: MenuItem[] = [
   getItem('Calendar', '/calendar', <CalendarOutlined />),
   getItem('Groups', '/groups', <MessageOutlined />),
   getItem('Payment', '/payment', <SnippetsOutlined />),
-
-
+  getItem('Logout', '/logout', <LogoutOutlined />),
 ];
 
 const AntdMenu: React.FC = () => {
@@ -68,12 +68,12 @@ const AntdMenu: React.FC = () => {
   return (
     <>
       <Menu
-        style={{ width: 256 ,height:3000,position: "fixed" }}
+        style={{ width: 256, height: 3000, position: "fixed" }}
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode={mode}
         // theme={theme}
-        onClick={onClick} selectedKeys={[current]} 
+        onClick={onClick} selectedKeys={[current]}
         items={items}
       />
     </>
