@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { IhcLink } from "../../Components/Link/IhcLink";
 import { LanguageContext } from "../../../contexts/LanguageContext";
+import ProfileDetail from "./ProfileDetail";
 
 export default function Profile() {
 
@@ -14,7 +15,7 @@ export default function Profile() {
     return (
 
         <>
-            <div className="flex gap-5 p-1 m-1 flex-wrap">
+            <div className="flex gap-5 p-1 m-1 flex-wrap justify-center">
                 <div className="w-72 flex flex-col gap-5 p-1 m-1">
                     <div className="bg-slate-300  rounded-lg">
                         <div className="flex items-center justify-center pt-10 flex-col">
@@ -57,7 +58,11 @@ export default function Profile() {
 
                 </div>
 
-                <div className="grow">1111111111</div>
+                <div className="grow flex justify-center">
+
+                    <ProfileDetail />
+
+                </div>
             </div>
         </>
     )
