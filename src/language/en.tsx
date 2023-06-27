@@ -10,15 +10,15 @@ export const en = {
     Login: {
         pageTitle: "login",
         label: {
-            username: "Login ID",
+            username: "Username",
             password: "Password"
         },
         placeholder: {
-            username: "Please enter you Login ID",
+            username: "Please enter you username",
             password: "Please enter you password"
         },
         message: {
-            username: "Login ID is required item",
+            username: "Username is required item",
             password: "Password is required item"
         }
     },

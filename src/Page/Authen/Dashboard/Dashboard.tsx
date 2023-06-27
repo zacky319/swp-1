@@ -24,7 +24,6 @@ export const Dashboard = () => {
         }
     };
     
-console.log(process.env.REACT_APP_BASE_URLS);
 
     return (
         <>

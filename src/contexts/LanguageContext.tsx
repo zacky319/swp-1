@@ -5,6 +5,7 @@ import { useStorage } from "../hooks/useLocalStorage";
 
 import { RoutDef, RouteItem, routs_en, routs_vn } from "../constants/ROUT";
 import { vn } from "../language/vn";
+import { UserLocal, userLocalDefault } from "./UserContext";
 
 
 export type LanguageType = "en" | "vn"
@@ -18,6 +19,8 @@ interface LanguageContextType {
 export const LanguageContext = createContext<LanguageContextType | null>(null);
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     const [language, setLanguage] = useStorage<LanguageType>("LANG", "en")
+    const [user, setUser] = useStorage<UserLocal>("USER", userLocalDefault)
+
     const text = language === "en" ? en : vn
     const routs = language === "en" ? routs_en : routs_vn
     return (

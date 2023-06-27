@@ -8,12 +8,13 @@ import { Home } from "./Page/Authen/Home/Home";
 import { Dashboard } from "./Page/Authen/Dashboard/Dashboard";
 import AntdMenu from "./Page/Components/antdMenu/AntdMenu";
 import Profile from "./Page/Authen/Profile/Profile";
+import { Authorizations } from "./contexts/Authorizations";
 
 export const routers = createBrowserRouter(
     [
         {
             path: "/",
-            element: <Home />
+            element: (<SignIn />)
         },
         {
             path: "*",
@@ -23,25 +24,29 @@ export const routers = createBrowserRouter(
             path: routs_en["/signIn"].link,
             element: <SignIn />
         },
-        {
-            path: routs_en["/reissue"].link,
-            element: <Reissue />
-        },
+        // {
+        //     path: routs_en["/reissue"].link,
+        //     element: <Reissue />
+        // },
         {
             path: "/dashboard",
             element:
-                (<div className="flex gap-5 p-1  m-1 ">
-                    <div className="flex-none w-64"><AntdMenu /></div>
-                    <div className="grow "><Dashboard /></div>
-                </div>)
+                (
+
+                    <Authorizations >
+                        <div className="flex gap-5 p-1  m-1 ">
+                            <div className="flex-none w-64"><AntdMenu /></div>
+                            <div className="grow "><Dashboard /></div>
+                        </div>
+                    </Authorizations>)
         },
         {
             path: "/profile",
             element:
-                (<div className="flex gap-5 p-1  m-1 ">
+                (<Authorizations ><div className="flex gap-5 p-1  m-1 ">
                     <div className="flex-none w-64"><AntdMenu /></div>
                     <div className="grow "><Profile /></div>
-                </div>)
+                </div></Authorizations>)
         },
 
     ]

@@ -2,14 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { IhcLink } from "../../Components/Link/IhcLink";
 import { LanguageContext } from "../../../contexts/LanguageContext";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { LoginRequest, LoginRequestDefault } from "../../../services/types/authen";
+import { LoginRequestDefault } from "../../../services/types/authen";
 import { AntdInput } from "../../Components/antdInput/AntdInput2";
 import { AntdButton } from "../../Components/antdButton/AntdButton";
-import HeadersApp from "../../Components/Headers/HeadersApp";
-import HeadersAntd from "../../Components/Headers/HeadersAntd";
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useStorage } from "../../../hooks/useLocalStorage";
+import { UserLocal } from "../../../contexts/UserContext";
 export const SignIn: React.FC = () => {
+
+    const navigate = useNavigate()
     const {
         text: {
             Login,
@@ -17,16 +21,13 @@ export const SignIn: React.FC = () => {
         },
         routs
     } = useContext(LanguageContext)!;
-    useEffect(() => {
 
-    }, [])
+
     type Inputs = {
-        code: string
         username: string
         password: string
     }
     const loginMessenger = yup.object({
-        code: yup.string().required(Login.placeholder.username),
         username: yup.string().required(Login.placeholder.username),
         password: yup.string().required(Login.placeholder.password),
 
@@ -34,16 +35,38 @@ export const SignIn: React.FC = () => {
     const methods = useForm<Inputs>({
         resolver: yupResolver(loginMessenger),
         defaultValues: {
-            // code: "",
             username: "",
             password: "",
         },
         values: LoginRequestDefault
     })
+    const userLocalDefault: UserLocal = {
+        profileToken: '',
+        username: '',
+    };
+    const [user, setUser] = useStorage<UserLocal>("USER", userLocalDefault)
 
-    const { handleSubmit, register, setFocus, watch, setValue } = methods
+    const { handleSubmit, register } = methods
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+    const [isUserSet, setIsUserSet] = useState(false);
+    useEffect(() => {
+        if (isUserSet) {
+            navigate('/dashboard')
+        }
+    }, [isUserSet]);
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URLS}Login`, data);
+            setUser({
+                profileToken: `${response?.data?.token}`,
+                username: `${data?.username}`,
+            });
+            setIsUserSet(true);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <>
 
@@ -67,23 +90,18 @@ export const SignIn: React.FC = () => {
                                 <AntdInput
                                     placeholder={Login.label.username}
                                     label={Login.label.username}
-                                    type="code"
+                                    type="text"
                                     // search
-                                    maxLength={5}
-                                    {...register("code")}
+                                    {...register("username")}
                                     required
                                 />
                             </div>
-
-                            
                             <div>
-
                                 <div className="mt-2">
                                     <AntdInput
                                         placeholder={Login.label.password}
                                         label={Login.label.password}
                                         type="password"
-                                        maxLength={16}
                                         {...register("password")}
                                         required
                                     />
@@ -94,18 +112,19 @@ export const SignIn: React.FC = () => {
 
                                 </label>
                                 <div className="text-sm">
-                                    <IhcLink to={routs["/reissue"].link}  className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                    <IhcLink to={routs["/reissue"].link} className="font-semibold text-indigo-600 hover:text-indigo-500">
                                         Forgot password?
                                     </IhcLink>
                                 </div>
                             </div>
                             <div>
-                                <button
-                                    type="submit"
+                                <AntdButton
+                                    htmlType="submit"
+                                    type="primary"
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     {button.login}
-                                </button>
+                                </AntdButton>
                             </div>
                         </form>
                     </FormProvider>
